@@ -14,7 +14,7 @@
 | 10 | `kinAnalytic_fp` | `--m_aa 2 --orth_aa 3` | IDENTICAL | — | — | — | — |
 | 11 | `kinAnalytic_fp` | `--m_aa 3 --depth_fn` | IDENTICAL | — | — | — | — |
 | 12 | `kinFerTron_dns` | _(none)_ | IDENTICAL | — | — | — | — |
-| 13 | `kinFerTron_klu` | _(none)_ | NOT_PORTED | — | — | — | — |
+| 13 | `kinFerTron_klu` | _(none)_ | IDENTICAL | — | — | — | — |
 | 14 | `kinFoodWeb_kry` | _(none)_ | IDENTICAL | — | — | — | — |
 | 15 | `kinKrylovDemo_ls` | _(none)_ | IDENTICAL | — | — | — | — |
 | 16 | `kinLaplace_bnd` | _(none)_ | IDENTICAL | — | — | — | — |

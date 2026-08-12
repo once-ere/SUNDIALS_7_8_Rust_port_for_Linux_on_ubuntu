@@ -22,7 +22,7 @@
 | 18 | `cvRoberts_dns_constraints` | _(none)_ | IDENTICAL | — | — | — | — |
 | 19 | `cvRoberts_dns_negsol` | _(none)_ | IDENTICAL | — | — | — | — |
 | 20 | `cvRoberts_dns_uw` | _(none)_ | IDENTICAL | — | — | — | — |
-| 21 | `cvRoberts_klu` | _(none)_ | NOT_PORTED | — | — | — | — |
+| 21 | `cvRoberts_klu` | _(none)_ | NUMERIC | 8 / 25 | 3.333e-01 | 2251799813685248 | [diff](diffs/cvode/serial/cvRoberts_klu.diff) |
 | 22 | `cvRoberts_sps` | _(none)_ | NOT_PORTED | — | — | — | — |
 | 23 | `cvRocket_dns` | _(none)_ | IDENTICAL | — | — | — | — |
 | 24 | `cvVdp_auto_nls` | _(none)_ | IDENTICAL | — | — | — | — |

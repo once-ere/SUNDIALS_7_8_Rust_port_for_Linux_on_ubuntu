@@ -11,7 +11,7 @@ captured bytes.
 
 | item | value |
 |---|---|
-| generated | 2026-08-12 20:18:49 UTC |
+| generated | 2026-08-12 20:41:05 UTC |
 | operating system | Ubuntu 26.04 LTS |
 | kernel / platform | Linux-7.0.0-29-generic-x86_64-with-glibc2.43 |
 | architecture | x86_64 |
@@ -35,17 +35,17 @@ python3 tools/make_reports.py                    # these documents
 
 ## Headline result
 
-**Of 179 comparable variants, 171 are byte-for-byte identical (95.5%).**
+**Of 181 comparable variants, 172 are byte-for-byte identical (95.0%).**
 
 **With the elementary functions delegated back to the host C library (`--features host-libm`), 179 of 179 are identical — that is, all of them.** Every remaining difference is therefore caused by the deliberate pure-Rust libm and by nothing else: **0 port defects**, measured rather than asserted. See [ATTRIBUTION.md](ATTRIBUTION.md).
 
 | class | variants | meaning |
 |---|---:|---|
-| IDENTICAL | 171 | the two stdout streams are equal byte for byte |
+| IDENTICAL | 172 | the two stdout streams are equal byte for byte |
 | WHITESPACE | 0 | every printed character matches; only column padding differs |
-| NUMERIC | 7 | same text, same field count, at least one number differs |
+| NUMERIC | 8 | same text, same field count, at least one number differs |
 | STRUCTURAL | 1 | different lines, words or field counts |
-| NOT_PORTED | 20 | KLU / SuperLU_MT example, excluded by design on both sides |
+| NOT_PORTED | 18 | KLU / SuperLU_MT example, excluded by design on both sides |
 | NO_C_RUN | 0 | the C example could not be built on this machine |
 
 ## How to read a difference
@@ -79,5 +79,5 @@ or the libm substitution accounts for it. Raw data in
 * [CVODES](by-solver/cvodes_serial.md) — 32 identical of 39
 * [IDA](by-solver/ida_serial.md) — 11 identical of 14
 * [IDAS](by-solver/idas_serial.md) — 14 identical of 22
-* [KINSOL](by-solver/kinsol_serial.md) — 20 identical of 22
+* [KINSOL](by-solver/kinsol_serial.md) — 21 identical of 22
 

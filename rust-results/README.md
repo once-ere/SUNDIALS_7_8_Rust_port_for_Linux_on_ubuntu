@@ -8,7 +8,7 @@ upstream serial examples printed on this machine. Same rules as
 
 | item | value |
 |---|---|
-| generated | 2026-08-12 20:18:49 UTC |
+| generated | 2026-08-12 20:41:05 UTC |
 | operating system | Ubuntu 26.04 LTS |
 | kernel / platform | Linux-7.0.0-29-generic-x86_64-with-glibc2.43 |
 | architecture | x86_64 |
@@ -37,14 +37,15 @@ nothing needed to be.
 
 ## Headline result
 
-**199 (example, argv) variants, 179 exited 0, 20 have no Rust counterpart.**
+**199 (example, argv) variants, 181 exited 0, 18 have no Rust counterpart.**
 
 | status | variants |
 |---|---|
-| OK | 179 |
-| NOT_PORTED | 20 |
+| OK | 181 |
+| NOT_PORTED | 18 |
 
-`NOT_PORTED` marks the 11 `*_klu` and 9 `*_sps`/`*_slu` examples.
+`NOT_PORTED` marks the `*_klu` examples not yet translated plus the
+9 `*_sps`/`*_slu` ones.
 Both KLU and SuperLU_MT are third-party sparse-direct **C** libraries,
 and a port whose hard rules are *no `unsafe`, no FFI, no external
 crates* cannot call them; there is no pure-Rust equivalent in this
@@ -54,9 +55,9 @@ bookkeeping artefact:
 * the 9 SuperLU_MT examples cannot be built on the C side either —
   SuperLU_MT is not packaged for Ubuntu at any version — so nothing
   is lost by their absence here;
-* the 11 KLU examples **do** build and run on the C side (see
+* the KLU examples **do** build and run on the C side (see
   `c-results/`), so for those the C column exists and the Rust column
-  does not. Closing that gap would mean implementing a sparse direct
+  does not. Closing that gap needs a sparse direct
   solver in `sundials_core`, which is a separate project.
 
 See [`../requirements.md`](../requirements.md) §3.

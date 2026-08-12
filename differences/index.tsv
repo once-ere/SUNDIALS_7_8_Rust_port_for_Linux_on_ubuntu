@@ -97,7 +97,7 @@ cvode/serial	cvRoberts_dnsL		cvRoberts_dnsL	IDENTICAL	OK	OK
 cvode/serial	cvRoberts_dns_constraints		cvRoberts_dns_constraints	IDENTICAL	OK	OK					
 cvode/serial	cvRoberts_dns_negsol		cvRoberts_dns_negsol	IDENTICAL	OK	OK					
 cvode/serial	cvRoberts_dns_uw		cvRoberts_dns_uw	IDENTICAL	OK	OK					
-cvode/serial	cvRoberts_klu		cvRoberts_klu	NOT_PORTED	OK	NOT_PORTED					no pure-Rust counterpart (KLU/SuperLU backend)
+cvode/serial	cvRoberts_klu		cvRoberts_klu	NUMERIC	OK	OK	8	25	3.333e-01	2251799813685248	line 23 field 1
 cvode/serial	cvRoberts_sps		cvRoberts_sps	NOT_PORTED	-	NOT_PORTED					no pure-Rust counterpart (KLU/SuperLU backend)
 cvode/serial	cvRocket_dns		cvRocket_dns	IDENTICAL	OK	OK					
 cvode/serial	cvVdp_auto_nls		cvVdp_auto_nls	IDENTICAL	OK	OK					
@@ -188,7 +188,7 @@ kinsol/serial	kinAnalytic_fp	--m_aa 2 --orth_aa 2	kinAnalytic_fp__--m_aa_2_--ort
 kinsol/serial	kinAnalytic_fp	--m_aa 2 --orth_aa 3	kinAnalytic_fp__--m_aa_2_--orth_aa_3	IDENTICAL	OK	OK					
 kinsol/serial	kinAnalytic_fp	--m_aa 3 --depth_fn	kinAnalytic_fp__--m_aa_3_--depth_fn	IDENTICAL	OK	OK					
 kinsol/serial	kinFerTron_dns		kinFerTron_dns	IDENTICAL	OK	OK					
-kinsol/serial	kinFerTron_klu		kinFerTron_klu	NOT_PORTED	OK	NOT_PORTED					no pure-Rust counterpart (KLU/SuperLU backend)
+kinsol/serial	kinFerTron_klu		kinFerTron_klu	IDENTICAL	OK	OK					
 kinsol/serial	kinFoodWeb_kry		kinFoodWeb_kry	IDENTICAL	OK	OK					
 kinsol/serial	kinKrylovDemo_ls		kinKrylovDemo_ls	IDENTICAL	OK	OK					
 kinsol/serial	kinLaplace_bnd		kinLaplace_bnd	IDENTICAL	OK	OK					

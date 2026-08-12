@@ -15,6 +15,10 @@ name = "kinAnalytic_fp"
 path = "examples/kinAnalytic_fp.rs"
 
 [[example]]
+name = "kinFerTron_klu"
+path = "examples/kinFerTron_klu.rs"
+
+[[example]]
 name = "kinFerTron_dns"
 path = "examples/kinFerTron_dns.rs"
 
