@@ -1,0 +1,24 @@
+/target
+/target-hostlibm
+/build
+
+# logs/ holds regenerable output; the two differential logs are kept as
+# evidence because README.md and LIBM.md quote them.
+/logs/*
+!/logs/libm_differential.log
+!/logs/pow_differential.log
+!/logs/c_build.log
+
+.claude/
+
+# Runtime artifacts examples write into their CWD (stats CSVs, solution
+# trajectories). Root-anchored so real repo data files keep tracking —
+# e.g. crates/sundials_core/src/sundials_utils_cvec.txt, the printf
+# reference vectors.
+/*.csv
+/*.txt
+
+# Machine-local symlink to the read-only upstream SUNDIALS 7.8.0 C tree.
+# Recreate it (or export SUNDIALS_C_SRC) before running tools/c_build.sh:
+#   ln -s /path/to/sundials-7.8.0 upstream-c
+/upstream-c

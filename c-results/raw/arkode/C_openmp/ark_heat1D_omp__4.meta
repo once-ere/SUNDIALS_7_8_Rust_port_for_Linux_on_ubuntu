@@ -1,0 +1,9 @@
+example:  ark_heat1D_omp
+source:   examples/arkode/C_openmp/ark_heat1D_omp.c
+binary:   /home/nsh/Developer/github/SUNDIALS_7_8_Rust_port_for_Linux_on_ubuntu/build/c/examples/arkode/C_openmp/ark_heat1D_omp
+argv:     4
+cwd:      /home/nsh/Developer/github/SUNDIALS_7_8_Rust_port_for_Linux_on_ubuntu/build/c-run/arkode/C_openmp/ark_heat1D_omp__4
+exit:     0 (OK)
+seconds:  0.306
+stdout:   864 bytes, sha256 b4a10063468904a68c68d69b566e5f725249bf6831698e2f388761b810dcd2cd
+stderr:   0 bytes
