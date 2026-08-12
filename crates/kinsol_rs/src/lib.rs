@@ -53,6 +53,7 @@ pub use sundials_core::sundials_utils;
 pub use sundials_core::sundials_version;
 pub use sundials_core::sunlinsol_band;
 pub use sundials_core::sunlinsol_dense;
+pub use sundials_core::sunlinsol_klu;
 pub use sundials_core::sunlinsol_pcg;
 pub use sundials_core::sunlinsol_spbcgs;
 pub use sundials_core::sunlinsol_spfgmr;
@@ -90,6 +91,7 @@ pub mod prelude {
     pub use sundials_core::sundials_utils::*;
     pub use sundials_core::sunlinsol_band::*;
     pub use sundials_core::sunlinsol_dense::*;
+    pub use sundials_core::sunlinsol_klu::*;
     pub use sundials_core::sunlinsol_pcg::*;
     pub use sundials_core::sunlinsol_spbcgs::*;
     pub use sundials_core::sunlinsol_spfgmr::*;
