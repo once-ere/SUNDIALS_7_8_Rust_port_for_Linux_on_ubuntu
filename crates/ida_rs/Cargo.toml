@@ -35,6 +35,10 @@ name = "idaKrylovDemo_ls"
 path = "examples/idaKrylovDemo_ls.rs"
 
 [[example]]
+name = "idaRoberts_klu"
+path = "examples/idaRoberts_klu.rs"
+
+[[example]]
 name = "idaRoberts_dns"
 path = "examples/idaRoberts_dns.rs"
 

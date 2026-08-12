@@ -51,6 +51,10 @@ name = "idasRoberts_FSA_dns"
 path = "examples/idasRoberts_FSA_dns.rs"
 
 [[example]]
+name = "idasRoberts_klu"
+path = "examples/idasRoberts_klu.rs"
+
+[[example]]
 name = "idasRoberts_dns"
 path = "examples/idasRoberts_dns.rs"
 

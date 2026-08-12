@@ -132,13 +132,13 @@ cvodes/serial	cvsRoberts_FSA_dns_Switch		cvsRoberts_FSA_dns_Switch	IDENTICAL	OK	
 cvodes/serial	cvsRoberts_FSA_dns	-sensi sim t	cvsRoberts_FSA_dns__-sensi_sim_t	IDENTICAL	OK	OK					
 cvodes/serial	cvsRoberts_FSA_dns	-sensi stg1 t	cvsRoberts_FSA_dns__-sensi_stg1_t	IDENTICAL	OK	OK					
 cvodes/serial	cvsRoberts_FSA_dns_constraints	-sensi stg1 t	cvsRoberts_FSA_dns_constraints__-sensi_stg1_t	IDENTICAL	OK	OK					
-cvodes/serial	cvsRoberts_FSA_klu	-sensi stg1 t	cvsRoberts_FSA_klu__-sensi_stg1_t	NOT_PORTED	OK	NOT_PORTED					no pure-Rust counterpart (KLU/SuperLU backend)
+cvodes/serial	cvsRoberts_FSA_klu	-sensi stg1 t	cvsRoberts_FSA_klu__-sensi_stg1_t	NUMERIC	OK	OK	1	88	5.464e-05	371382011785	line 76 field 2
 cvodes/serial	cvsRoberts_FSA_sps	-sensi stg1 t	cvsRoberts_FSA_sps__-sensi_stg1_t	NOT_PORTED	-	NOT_PORTED					no pure-Rust counterpart (KLU/SuperLU backend)
 cvodes/serial	cvsRoberts_dns		cvsRoberts_dns	IDENTICAL	OK	OK					
 cvodes/serial	cvsRoberts_dnsL		cvsRoberts_dnsL	IDENTICAL	OK	OK					
 cvodes/serial	cvsRoberts_dns_constraints		cvsRoberts_dns_constraints	IDENTICAL	OK	OK					
 cvodes/serial	cvsRoberts_dns_uw		cvsRoberts_dns_uw	IDENTICAL	OK	OK					
-cvodes/serial	cvsRoberts_klu		cvsRoberts_klu	NOT_PORTED	OK	NOT_PORTED					no pure-Rust counterpart (KLU/SuperLU backend)
+cvodes/serial	cvsRoberts_klu		cvsRoberts_klu	NUMERIC	OK	OK	8	25	3.333e-01	2251799813685248	line 23 field 1
 cvodes/serial	cvsRoberts_sps		cvsRoberts_sps	NOT_PORTED	-	NOT_PORTED					no pure-Rust counterpart (KLU/SuperLU backend)
 ida/serial	idaAnalytic_mels		idaAnalytic_mels	IDENTICAL	OK	OK					
 ida/serial	idaAnalytic_mels	ida.scalar_tolerances 1e-3 1e-8	idaAnalytic_mels__ida.scalar_tolerances_1e-3_1e-8	IDENTICAL	OK	OK					
@@ -151,7 +151,7 @@ ida/serial	idaKrylovDemo_ls		idaKrylovDemo_ls	IDENTICAL	OK	OK
 ida/serial	idaKrylovDemo_ls	1	idaKrylovDemo_ls__1	IDENTICAL	OK	OK					
 ida/serial	idaKrylovDemo_ls	2	idaKrylovDemo_ls__2	IDENTICAL	OK	OK					
 ida/serial	idaRoberts_dns		idaRoberts_dns	IDENTICAL	OK	OK					
-ida/serial	idaRoberts_klu		idaRoberts_klu	NOT_PORTED	OK	NOT_PORTED					no pure-Rust counterpart (KLU/SuperLU backend)
+ida/serial	idaRoberts_klu		idaRoberts_klu	NUMERIC	OK	OK	1	40	1.918e-02	140737488355328	line 39 field 0
 ida/serial	idaRoberts_sps		idaRoberts_sps	NOT_PORTED	-	NOT_PORTED					no pure-Rust counterpart (KLU/SuperLU backend)
 ida/serial	idaSlCrank_dns		idaSlCrank_dns	IDENTICAL	OK	OK					
 idas/serial	idasAkzoNob_ASAi_dns		idasAkzoNob_ASAi_dns	IDENTICAL	OK	OK					
@@ -172,7 +172,7 @@ idas/serial	idasRoberts_FSA_dns	-sensi stg t	idasRoberts_FSA_dns__-sensi_stg_t	I
 idas/serial	idasRoberts_FSA_klu	-sensi stg t	idasRoberts_FSA_klu__-sensi_stg_t	NOT_PORTED	OK	NOT_PORTED					no pure-Rust counterpart (KLU/SuperLU backend)
 idas/serial	idasRoberts_FSA_sps	-sensi stg t	idasRoberts_FSA_sps__-sensi_stg_t	NOT_PORTED	-	NOT_PORTED					no pure-Rust counterpart (KLU/SuperLU backend)
 idas/serial	idasRoberts_dns		idasRoberts_dns	IDENTICAL	OK	OK					
-idas/serial	idasRoberts_klu		idasRoberts_klu	NOT_PORTED	OK	NOT_PORTED					no pure-Rust counterpart (KLU/SuperLU backend)
+idas/serial	idasRoberts_klu		idasRoberts_klu	NUMERIC	OK	OK	1	40	1.918e-02	140737488355328	line 39 field 0
 idas/serial	idasRoberts_sps		idasRoberts_sps	NOT_PORTED	-	NOT_PORTED					no pure-Rust counterpart (KLU/SuperLU backend)
 idas/serial	idasSlCrank_FSA_dns		idasSlCrank_FSA_dns	NUMERIC	OK	OK	8	39	1.000e+00	4607182418800017408	line 14 field 0
 idas/serial	idasSlCrank_dns		idasSlCrank_dns	NUMERIC	OK	OK	1	48	7.420e-13	5575	line 45 field 0

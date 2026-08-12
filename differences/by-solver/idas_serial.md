@@ -20,7 +20,7 @@
 | 16 | `idasRoberts_FSA_klu` | `-sensi stg t` | NOT_PORTED | — | — | — | — |
 | 17 | `idasRoberts_FSA_sps` | `-sensi stg t` | NOT_PORTED | — | — | — | — |
 | 18 | `idasRoberts_dns` | _(none)_ | IDENTICAL | — | — | — | — |
-| 19 | `idasRoberts_klu` | _(none)_ | NOT_PORTED | — | — | — | — |
+| 19 | `idasRoberts_klu` | _(none)_ | NUMERIC | 1 / 40 | 1.918e-02 | 140737488355328 | [diff](diffs/idas/serial/idasRoberts_klu.diff) |
 | 20 | `idasRoberts_sps` | _(none)_ | NOT_PORTED | — | — | — | — |
 | 21 | `idasSlCrank_FSA_dns` | _(none)_ | NUMERIC | 8 / 39 | 1.000e+00 | 4607182418800017408 | [diff](diffs/idas/serial/idasSlCrank_FSA_dns.diff) |
 | 22 | `idasSlCrank_dns` | _(none)_ | NUMERIC | 1 / 48 | 7.420e-13 | 5575 | [diff](diffs/idas/serial/idasSlCrank_dns.diff) |

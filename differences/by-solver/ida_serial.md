@@ -13,7 +13,7 @@
 | 9 | `idaKrylovDemo_ls` | `1` | IDENTICAL | — | — | — | — |
 | 10 | `idaKrylovDemo_ls` | `2` | IDENTICAL | — | — | — | — |
 | 11 | `idaRoberts_dns` | _(none)_ | IDENTICAL | — | — | — | — |
-| 12 | `idaRoberts_klu` | _(none)_ | NOT_PORTED | — | — | — | — |
+| 12 | `idaRoberts_klu` | _(none)_ | NUMERIC | 1 / 40 | 1.918e-02 | 140737488355328 | [diff](diffs/ida/serial/idaRoberts_klu.diff) |
 | 13 | `idaRoberts_sps` | _(none)_ | NOT_PORTED | — | — | — | — |
 | 14 | `idaSlCrank_dns` | _(none)_ | IDENTICAL | — | — | — | — |
 

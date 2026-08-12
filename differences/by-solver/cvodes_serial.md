@@ -33,12 +33,12 @@
 | 29 | `cvsRoberts_FSA_dns` | `-sensi stg1 t` | IDENTICAL | — | — | — | — |
 | 30 | `cvsRoberts_FSA_dns_Switch` | _(none)_ | IDENTICAL | — | — | — | — |
 | 31 | `cvsRoberts_FSA_dns_constraints` | `-sensi stg1 t` | IDENTICAL | — | — | — | — |
-| 32 | `cvsRoberts_FSA_klu` | `-sensi stg1 t` | NOT_PORTED | — | — | — | — |
+| 32 | `cvsRoberts_FSA_klu` | `-sensi stg1 t` | NUMERIC | 1 / 88 | 5.464e-05 | 371382011785 | [diff](diffs/cvodes/serial/cvsRoberts_FSA_klu__-sensi_stg1_t.diff) |
 | 33 | `cvsRoberts_FSA_sps` | `-sensi stg1 t` | NOT_PORTED | — | — | — | — |
 | 34 | `cvsRoberts_dns` | _(none)_ | IDENTICAL | — | — | — | — |
 | 35 | `cvsRoberts_dnsL` | _(none)_ | IDENTICAL | — | — | — | — |
 | 36 | `cvsRoberts_dns_constraints` | _(none)_ | IDENTICAL | — | — | — | — |
 | 37 | `cvsRoberts_dns_uw` | _(none)_ | IDENTICAL | — | — | — | — |
-| 38 | `cvsRoberts_klu` | _(none)_ | NOT_PORTED | — | — | — | — |
+| 38 | `cvsRoberts_klu` | _(none)_ | NUMERIC | 8 / 25 | 3.333e-01 | 2251799813685248 | [diff](diffs/cvodes/serial/cvsRoberts_klu.diff) |
 | 39 | `cvsRoberts_sps` | _(none)_ | NOT_PORTED | — | — | — | — |
 

@@ -1,0 +1,6 @@
+--- c-results/raw/idas/serial/idasRoberts_klu.stdout
++++ rust-results/raw/idas/serial/idasRoberts_klu.stdout
+@@ -38,2 +38,2 @@
+ Number of step solver failures     = 0
+-Number of root fn. evaluations     = 409
++Number of root fn. evaluations     = 417
