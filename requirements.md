@@ -36,7 +36,7 @@ can actually *use* them is a separate question, answered in §3.
 | **PETSc** | yes | **no** — §3.1 | `petsc`, `C_petsc` | `petsc-dev` |
 | **SuperLU_DIST** | yes | **no** — §3.2 | `superludist`, `CXX_superludist` | `libsuperlu-dist-dev` |
 | **Kokkos** | yes | **no** — §3.3 | `cvode/kokkos` | `libkokkos-dev` |
-| **Trilinos (Tpetra)** | yes | **no** — §3.4 | `ida/trilinos` | `libtrilinos-tpetra-dev` |
+| **Trilinos (Tpetra)** | yes | **no** — §3.4 | `ida/trilinos` | `libtrilinos-tpetra-dev` + `libtrilinos-teuchos-dev` |
 | **CUDA 13.1 + RTX 5090** | yes | **no** — §3.5 | `cuda`, `mpicuda` | already installed |
 | **MAGMA** | yes | **no** — §3.6 | `cvode/magma` | `libmagma-dev` |
 | **SuperLU_MT** | **no** | no | the 9 `*_sps` / `*_slu` examples | _not packaged for Ubuntu_ |
@@ -56,11 +56,11 @@ the executed variant set from 259 to the number in
 [`c-results/README.md`](c-results/README.md). MPI, KLU and hypre all became
 usable; the other four did not, for the reasons in §3.
 
-One further package would help:
-
-```bash
-sudo apt install libtrilinos-teuchos-dev     # see §3.4
-```
+`libtrilinos-teuchos-dev` was installed afterwards, on the evidence in
+§3.4. It removed the error it was diagnosed for, but did not make Trilinos
+usable: the failure simply moved one layer down, into the same broken
+Kokkos package described in §3.3. Both are now blocked by that one Ubuntu
+bug.
 
 ## 3. Installed but not usable, with the exact reason
 
@@ -115,11 +115,20 @@ The imported target "Kokkos::kokkosalgorithms" references the file
 but this file does not exist.
 ```
 
-`libkokkos-dev` 5.0.2-2 installs a CMake config that declares a target for
-a library the package does not ship. Nothing on the SUNDIALS side can work
-around it.
+`libkokkos-dev` 5.0.2-2 installs `libkokkoscore.so` and
+`libkokkoscontainers.so` and nothing else, yet its CMake config declares
+four `STATIC IMPORTED` targets — including `kokkosalgorithms` and
+`kokkossimd`, whose `.a` files exist nowhere on the system. In Kokkos 5.x
+those components are header-only (`/usr/include/kokkos/Kokkos_StdAlgorithms.hpp`,
+`/usr/include/kokkos/std_algorithms/`), so the archives are not merely
+missing — they should not exist at all, and the packaged config is simply
+wrong. Nothing on the SUNDIALS side can work around it, and it blocks
+Trilinos too (§3.4).
 
-### 3.4 Trilinos — a dependency package is missing
+### 3.4 Trilinos — a missing dependency, and then the Kokkos bug
+
+Trilinos failed twice, for two different reasons. The first was a genuine
+missing dependency:
 
 ```
 CMake Error at .../cmake/TpetraCore/TpetraCoreConfig.cmake:202 (include):
@@ -128,11 +137,26 @@ CMake Error at .../cmake/TpetraCore/TpetraCoreConfig.cmake:202 (include):
 ```
 
 `libtrilinos-tpetra-dev` does not depend on the Teuchos development
-package, but its CMake config includes it. **This one is fixable:**
+package, but its CMake config includes it. Installing
+`libtrilinos-teuchos-dev` fixed that error exactly as predicted — and
+exposed the next one:
 
-```bash
-sudo apt install libtrilinos-teuchos-dev
 ```
+CMake Error at .../cmake/Kokkos/KokkosTargets.cmake:130 (message):
+  The imported target "Kokkos::kokkosalgorithms" references the file
+     "/usr/lib/x86_64-linux-gnu/libkokkosalgorithms.a"
+  but this file does not exist.
+```
+
+That is §3.3 again. `TrilinosConfig.cmake` lists `Kokkos` among its
+required components, and there is exactly one Kokkos CMake package on the
+system — the broken one. `libtrilinos-kokkos-dev` does not help: Trilinos
+16.1 resolves the component through
+`/usr/lib/x86_64-linux-gnu/cmake/Kokkos` either way.
+
+**So Trilinos is not fixable by installing packages on this machine.** It
+becomes usable only when the `libkokkos-dev` CMake config stops declaring
+static targets for components Kokkos 5.x ships as header-only.
 
 ### 3.5 CUDA — nvcc 13.1 headers clash with glibc 2.43
 

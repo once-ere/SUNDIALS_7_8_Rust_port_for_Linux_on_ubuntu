@@ -9,7 +9,7 @@ filtered, rounded or edited.
 
 | item | value |
 |---|---|
-| generated | 2026-08-12 15:24:02 UTC |
+| generated | 2026-08-12 20:18:49 UTC |
 | operating system | Ubuntu 26.04 LTS |
 | kernel / platform | Linux-7.0.0-29-generic-x86_64-with-glibc2.43 |
 | architecture | x86_64 |
@@ -67,6 +67,32 @@ cat c-results/raw/cvode/serial/cvRoberts_dns.meta      # what was run
 cat c-results/raw/cvode/serial/cvRoberts_dns.stdout    # what it printed
 sha256sum c-results/raw/cvode/serial/cvRoberts_dns.stdout
 ```
+
+## Run-to-run reproducibility
+
+The whole pipeline was executed three times on this machine. The
+captured `.stdout` files were compared between runs with git, which is
+a byte comparison:
+
+| set | variants | reproduced byte for byte |
+|---|---:|---|
+| the six *serial* directories (the compared set) | 179 | **all of them** |
+| every Rust example (`rust-results/`) | 179 | **all of them** |
+| `*/C_openmp` and `*/F2003_openmp` | 12 | 6 of them differ between runs |
+
+The six that move are OpenMP examples run with a thread count as argv:
+`ark_heat1D_omp 4`, `idaFoodWeb_kry_omp 4`, `idasFoodWeb_kry_omp 4`,
+`kinFoodWeb_kry_omp 4`, and `idaHeat2D_kry_omp_f2003` at 4 and 8
+threads. This is expected and is not a defect in anything: an OpenMP
+reduction sums partial results in whatever order the threads finish, so
+a dot product or a norm differs in its last bits from run to run, and
+inside an iterative solver that changes the iteration counts. Compare
+`kinFoodWeb_kry_omp 4`, which reported `nni = 7, nli = 229` on one run
+and `nni = 10, nli = 378` on the next.
+
+None of the six is in the compared set, so `differences/` is unaffected.
+It is recorded here because a reader is entitled to know which numbers
+in this directory are stable and which are not.
 
 ## Per-solver tables (serial examples — these are the ones with a Rust counterpart)
 
