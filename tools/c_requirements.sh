@@ -30,6 +30,13 @@ probe() { # <label> <examples> <apt> <test...>
   else check "$label" "MISSING" "$ex" "$apt"; fi
 }
 
+have_cmake_pkg() { [ -f "/usr/lib/x86_64-linux-gnu/cmake/$1/$1Config.cmake" ]; }
+have_petsc() { for d in /usr/lib/petscdir/petsc-real /usr/lib/petsc /usr/lib/petscdir/3.24; do
+                 [ -f "$d/include/petsc.h" ] && return 0; done; return 1; }
+have_mpi()   { command -v mpicc >/dev/null 2>&1 && mpicc -show >/dev/null 2>&1; }
+have_nvcc()  { command -v nvcc >/dev/null 2>&1 || [ -x /usr/local/cuda/bin/nvcc ]; }
+have_magma() { [ -f /usr/include/magma_v2.h ] && have_lib 'libmagma.*'; }
+
 probe "C compiler (cc)"    "everything"                       "gcc"                  have_cmd cc
 probe "C++ compiler"       "examples/*/CXX_*"                 "g++"                  have_cmd c++
 probe "Fortran compiler"   "examples/*/F2003_*"               "gfortran"             have_cmd gfortran
@@ -38,19 +45,18 @@ probe "OpenMP runtime"     "examples/*/C_openmp"              "libgomp1 (with gc
 probe "libquadmath"        "tools/libm_oracle.c ulp figures"  "gcc"                  have_lib 'libquadmath.so*'
 probe "BLAS"               "the *_dnsL / *_bndL LAPACK examples" "libblas-dev"       have_lib 'libblas.so*'
 probe "LAPACK"             "the *_dnsL / *_bndL LAPACK examples" "liblapack-dev"     have_lib 'liblapack.so*'
-probe "MPI (mpicc)"        "examples/*/{parallel,C_parallel,CXX_parallel}" "libopenmpi-dev" have_cmd mpicc
-probe "MPI headers"        "examples/*/{parallel,C_parallel,CXX_parallel}" "libopenmpi-dev" have_hdr mpi.h
+probe "MPI (mpicc works)"  "examples/*/{parallel,C_parallel,CXX_parallel}" "libopenmpi-dev" have_mpi
 probe "KLU (SuiteSparse)"  "the 11 *_klu examples"            "libsuitesparse-dev"   have_hdr suitesparse/klu.h
 probe "SuperLU_MT"         "the 9 *_sps / *_slu examples"     ""                     have_hdr superlu_mt/slu_mt_ddefs.h
-probe "SuperLU_DIST"       "examples/*/CXX_superludist"       "libsuperlu-dist-dev"  have_hdr superlu_dist/superlu_ddefs.h
+probe "SuperLU_DIST"       "examples/*/superludist"           "libsuperlu-dist-dev"  have_hdr superlu-dist/superlu_ddefs.h
 probe "hypre"              "examples/*/{parhyp,C_parhyp,CXX_parhyp}" "libhypre-dev"  have_hdr hypre/HYPRE.h
-probe "PETSc"              "examples/*/{petsc,C_petsc}"       "petsc-dev"            have_hdr petsc.h
-probe "Trilinos (Tpetra)"  "examples/ida/trilinos"            "libtrilinos-tpetra-dev" have_hdr trilinos/Tpetra_Core.hpp
-probe "CUDA (nvcc)"        "examples/*/{cuda,mpicuda}"        "nvidia-cuda-toolkit"  have_cmd nvcc
+probe "PETSc"              "examples/*/{petsc,C_petsc}"       "petsc-dev"            have_petsc
+probe "Trilinos (Tpetra)"  "examples/ida/trilinos"            "libtrilinos-tpetra-dev" have_cmake_pkg Trilinos
+probe "CUDA (nvcc)"        "examples/*/{cuda,mpicuda}"        "nvidia-cuda-toolkit"  have_nvcc
+probe "Kokkos"             "examples/cvode/kokkos"            "libkokkos-dev"        have_cmake_pkg Kokkos
+probe "MAGMA"              "examples/cvode/magma"             "libmagma-dev"         have_magma
 probe "Ginkgo"             "examples/cvode/ginkgo"            ""                     have_hdr ginkgo/ginkgo.hpp
-probe "Kokkos"             "examples/cvode/kokkos"            "libkokkos-dev"        have_hdr Kokkos_Core.hpp
 probe "RAJA"               "examples/*/raja"                  ""                     have_hdr RAJA/RAJA.hpp
-probe "MAGMA"              "examples/cvode/magma"             "libmagma-dev"         have_hdr magma_v2.h
 probe "oneMKL (SYCL)"      "examples/cvode/{CXX_onemkl,CXX_sycl}" ""                 have_cmd icpx
 probe "XBraid"             "examples/arkode/CXX_xbraid"       ""                     have_hdr braid.h
 

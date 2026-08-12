@@ -38,24 +38,44 @@ exdir_of() {
   esac
 }
 CRATES="cvode_rs cvodes_rs kinsol_rs ida_rs idas_rs arkode_rs"
-
+# Parse one CMakeLists.txt into "name|args|tasks" rows.
+#
+# Upstream declares its examples as quoted, backslash-semicolon separated
+# tuples, but the *arity differs by directory* and the header row that is
+# supposed to document it is sometimes stale:
+#
+#   examples/cvode/serial     "cvRoberts_dns\;\;develop"                name args type
+#   examples/cvode/parallel   "cvAdvDiff_diag_p\;2\;4\;exclude-single"  name nodes tasks type
+#   examples/arkode/C_parallel"ark_diurnal_kry_p\;\;1\;4\;...\;default" name args nodes tasks type ...
+#
+# Taking field 2 as argv unconditionally would run `cvAdvDiff_diag_p 2`.
+# So the schema is recovered from the data instead: the first pair of
+# *consecutive all-integer* fields is (nodes, tasks); everything between
+# the name and that pair is argv. Tuples whose first field is literally
+# "name" are the header row and are skipped.
 parse_cmake() {
   local cml=$1
   [ -f "$cml" ] || return 0
   grep -v '^[[:space:]]*#' "$cml" \
-    | grep -o '"[^"]*\\;[^"]*"' \
+    | grep -o '"[^"]*\;[^"]*"' \
     | sed -e 's/^"//' -e 's/"$//' \
-    | while IFS= read -r tuple; do
-        local name rest args
-        name=${tuple%%\\;*}
-        rest=${tuple#*\\;}
-        case "$rest" in
-          *\\\;*) args=${rest%%\\;*} ;;
-          *)      args="" ;;
-        esac
-        name=${name%.c}
-        printf '%s|%s\n' "$name" "$args"
-      done
+    | awk -F'\\\;' '
+        $1 == "name" { next }                      # schema header, not an example
+        {
+          name = $1; sub(/\.(c|cpp|f90)$/, "", name)
+          nodes_at = 0
+          for (i = 2; i < NF; i++) {
+            if ($i ~ /^[0-9]+$/ && $(i+1) ~ /^[0-9]+$/) { nodes_at = i; break }
+          }
+          args = ""; tasks = ""
+          if (nodes_at > 0) {
+            for (i = 2; i < nodes_at; i++) args = (args == "" ? $i : args " " $i)
+            tasks = $(nodes_at + 1)
+          } else if (NF >= 3) {
+            args = $2
+          }
+          printf "%s|%s|%s\n", name, args, tasks
+        }'
 }
 
 variant_id() {

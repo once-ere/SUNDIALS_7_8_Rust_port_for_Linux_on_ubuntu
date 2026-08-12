@@ -2,8 +2,9 @@ example:  idasFoodWeb_kry_omp
 source:   examples/idas/C_openmp/idasFoodWeb_kry_omp.c
 binary:   /home/nsh/Developer/github/SUNDIALS_7_8_Rust_port_for_Linux_on_ubuntu/build/c/examples/idas/C_openmp/idasFoodWeb_kry_omp
 argv:     4
+launcher: <direct>
 cwd:      /home/nsh/Developer/github/SUNDIALS_7_8_Rust_port_for_Linux_on_ubuntu/build/c-run/idas/C_openmp/idasFoodWeb_kry_omp__4
 exit:     0 (OK)
-seconds:  1.707
-stdout:   1549 bytes, sha256 e775c9caab34d572e922db157ac3395b43d795fa4027ea92a248961ed1de8387
+seconds:  1.808
+stdout:   1549 bytes, sha256 c739a08fe1d9f23c9148d0a4f06fa8ccd1035034d5e67125a43422b287b07b42
 stderr:   0 bytes

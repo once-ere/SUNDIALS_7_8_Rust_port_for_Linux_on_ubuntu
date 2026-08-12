@@ -17,7 +17,7 @@ cmake 4.2.3, rustc 1.96.1**.
 
 | | result | evidence |
 |---|---|---|
-| C examples built and executed | **259 (example, argv) variants, all exit 0** | [`c-results/`](c-results/) |
+| C examples built and executed | **337 (example, argv) variants, all exit 0** | [`c-results/`](c-results/) |
 | Rust examples built and executed | **179 variants, all exit 0** (+20 excluded by design) | [`rust-results/`](rust-results/) |
 | C output vs Rust output | **171 of 179 byte-for-byte identical (95.5 %)** | [`differences/`](differences/) |
 | the other 8 | **all become identical when the port is rebuilt `--features host-libm`** → **0 port defects** | [`differences/ATTRIBUTION.md`](differences/ATTRIBUTION.md) |
@@ -131,10 +131,17 @@ diff c-results/raw/cvode/serial/cvRoberts_dns.stdout \
   recoverable).
 * **Serial only.** No MPI, GPU, KLU, SuperLU, Fortran or XBraid backends —
   none of them is reachable without FFI.
-* The 20 KLU / SuperLU_MT examples are therefore not ported. They are also
-  the 20 the C build cannot produce on this machine (KLU needs
-  `libsuitesparse-dev`; SuperLU_MT is not packaged for Ubuntu at all), so
-  no comparison is lost. See [`requirements.md`](requirements.md) §3.
+* The 20 KLU / SuperLU_MT examples are therefore not ported, and that is a
+  real gap rather than a bookkeeping artefact:
+  * the **9** SuperLU_MT examples cannot be built on the C side either —
+    SuperLU_MT is not in the Ubuntu archive at any version — so nothing is
+    lost by their absence;
+  * the **11** KLU examples *do* build and run on the C side, so for those
+    the C column exists and the Rust column does not. Closing that gap
+    means implementing a sparse direct solver in `sundials_core`, which is
+    a separate project.
+
+  See [`requirements.md`](requirements.md) §4 and §6.
 
 ### What is platform-bound and what is not
 

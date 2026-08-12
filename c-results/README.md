@@ -9,7 +9,7 @@ filtered, rounded or edited.
 
 | item | value |
 |---|---|
-| generated | 2026-08-12 14:50:15 UTC |
+| generated | 2026-08-12 15:24:02 UTC |
 | operating system | Ubuntu 26.04 LTS |
 | kernel / platform | Linux-7.0.0-29-generic-x86_64-with-glibc2.43 |
 | architecture | x86_64 |
@@ -41,11 +41,11 @@ on; anything it could not is listed in [`../requirements.md`](../requirements.md
 
 ## Headline result
 
-**259 (example, argv) variants were executed. 259 exited 0.**
+**337 (example, argv) variants were executed. 337 exited 0.**
 
 | status | variants |
 |---|---|
-| OK | 259 |
+| OK | 337 |
 
 ## Layout of this directory
 
@@ -71,11 +71,11 @@ sha256sum c-results/raw/cvode/serial/cvRoberts_dns.stdout
 ## Per-solver tables (serial examples — these are the ones with a Rust counterpart)
 
 * [ARKODE — `arkode/C_serial`](by-solver/arkode_C_serial.md) — 78 variants
-* [CVODE — `cvode/serial`](by-solver/cvode_serial.md) — 21 variants
-* [CVODES — `cvodes/serial`](by-solver/cvodes_serial.md) — 33 variants
-* [IDA — `ida/serial`](by-solver/ida_serial.md) — 11 variants
-* [IDAS — `idas/serial`](by-solver/idas_serial.md) — 16 variants
-* [KINSOL — `kinsol/serial`](by-solver/kinsol_serial.md) — 20 variants
+* [CVODE — `cvode/serial`](by-solver/cvode_serial.md) — 23 variants
+* [CVODES — `cvodes/serial`](by-solver/cvodes_serial.md) — 36 variants
+* [IDA — `ida/serial`](by-solver/ida_serial.md) — 13 variants
+* [IDAS — `idas/serial`](by-solver/idas_serial.md) — 19 variants
+* [KINSOL — `kinsol/serial`](by-solver/kinsol_serial.md) — 21 variants
 
 ## Other example families that were also built and run
 
@@ -87,23 +87,43 @@ instruction was to build and execute *all* examples.
 |---|---|---|
 | `arkode/CXX_lapack` | 1 | yes |
 | `arkode/CXX_manyvector` | 1 | yes |
+| `arkode/CXX_parallel` | 6 | yes |
+| `arkode/CXX_parhyp` | 4 | yes |
 | `arkode/CXX_serial` | 18 | yes |
+| `arkode/C_klu` | 1 | yes |
 | `arkode/C_manyvector` | 1 | yes |
 | `arkode/C_openmp` | 2 | yes |
+| `arkode/C_parallel` | 5 | yes |
+| `arkode/C_parhyp` | 1 | yes |
 | `arkode/F2003_custom` | 6 | yes |
-| `arkode/F2003_serial` | 18 | yes |
+| `arkode/F2003_parallel` | 6 | yes |
+| `arkode/F2003_serial` | 19 | yes |
+| `cvode/CXX_parallel` | 1 | yes |
+| `cvode/CXX_parhyp` | 2 | yes |
 | `cvode/CXX_serial` | 3 | yes |
+| `cvode/C_mpimanyvector` | 1 | yes |
 | `cvode/C_openmp` | 1 | yes |
-| `cvode/F2003_serial` | 10 | yes |
+| `cvode/F2003_parallel` | 3 | yes |
+| `cvode/F2003_serial` | 12 | yes |
+| `cvode/parallel` | 4 | yes |
+| `cvode/parhyp` | 1 | yes |
 | `cvodes/C_openmp` | 1 | yes |
 | `cvodes/F2003_serial` | 3 | yes |
+| `cvodes/parallel` | 9 | yes |
 | `ida/C_openmp` | 2 | yes |
 | `ida/F2003_openmp` | 2 | yes |
+| `ida/F2003_parallel` | 1 | yes |
 | `ida/F2003_serial` | 2 | yes |
+| `ida/parallel` | 4 | yes |
 | `idas/C_openmp` | 2 | yes |
 | `idas/F2003_serial` | 2 | yes |
+| `idas/parallel` | 8 | yes |
+| `kinsol/CXX_parallel` | 2 | yes |
+| `kinsol/CXX_parhyp` | 2 | yes |
 | `kinsol/C_openmp` | 1 | yes |
+| `kinsol/F2003_parallel` | 1 | yes |
 | `kinsol/F2003_serial` | 4 | yes |
+| `kinsol/parallel` | 2 | yes |
 
 ## Example families that could not be built here
 

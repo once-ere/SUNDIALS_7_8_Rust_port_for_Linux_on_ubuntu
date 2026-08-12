@@ -37,8 +37,8 @@ Final run statistics:
 Number of steps                       = 167
 Number of residual evaluations        = 210
 Number of Preconditioner evaluations  = 26
-Number of linear iterations           = 651
+Number of linear iterations           = 649
 Number of error test failures         = 0
-Number of precond solve fun called    = 861
+Number of precond solve fun called    = 859
 num_threads = 4
 

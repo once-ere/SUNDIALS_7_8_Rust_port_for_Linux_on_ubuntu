@@ -29,31 +29,44 @@ TIMEOUT=${SUNDIALS_EXAMPLE_TIMEOUT:-600}
 
 rm -rf "$RAW" "$SCRATCH"
 mkdir -p "$RAW" "$SCRATCH" "$OUT"
-
-# Parse one CMakeLists.txt into "name|args" rows. Upstream declares its
-# examples as quoted, backslash-semicolon separated tuples:
-#     "cvRoberts_dns\;\;develop"          -> name, args(empty), label
-#     "cvsRoberts_FSA_dns\;-sensi sim t\;develop"
-# A 2-field tuple is name/label with no argv. arkode spells names with a
-# .c suffix. This is the same scan tools/verify_examples.sh uses, so the
-# C side and the Rust side enumerate an identical variant set.
+# Parse one CMakeLists.txt into "name|args|tasks" rows.
+#
+# Upstream declares its examples as quoted, backslash-semicolon separated
+# tuples, but the *arity differs by directory* and the header row that is
+# supposed to document it is sometimes stale:
+#
+#   examples/cvode/serial     "cvRoberts_dns\;\;develop"                name args type
+#   examples/cvode/parallel   "cvAdvDiff_diag_p\;2\;4\;exclude-single"  name nodes tasks type
+#   examples/arkode/C_parallel"ark_diurnal_kry_p\;\;1\;4\;...\;default" name args nodes tasks type ...
+#
+# Taking field 2 as argv unconditionally would run `cvAdvDiff_diag_p 2`.
+# So the schema is recovered from the data instead: the first pair of
+# *consecutive all-integer* fields is (nodes, tasks); everything between
+# the name and that pair is argv. Tuples whose first field is literally
+# "name" are the header row and are skipped.
 parse_cmake() {
   local cml=$1
   [ -f "$cml" ] || return 0
   grep -v '^[[:space:]]*#' "$cml" \
-    | grep -o '"[^"]*\\;[^"]*"' \
+    | grep -o '"[^"]*\;[^"]*"' \
     | sed -e 's/^"//' -e 's/"$//' \
-    | while IFS= read -r tuple; do
-        local name rest args
-        name=${tuple%%\\;*}
-        rest=${tuple#*\\;}
-        case "$rest" in
-          *\\\;*) args=${rest%%\\;*} ;;
-          *)      args="" ;;
-        esac
-        name=${name%.c}; name=${name%.cpp}; name=${name%.f90}
-        printf '%s|%s\n' "$name" "$args"
-      done
+    | awk -F'\\\;' '
+        $1 == "name" { next }                      # schema header, not an example
+        {
+          name = $1; sub(/\.(c|cpp|f90)$/, "", name)
+          nodes_at = 0
+          for (i = 2; i < NF; i++) {
+            if ($i ~ /^[0-9]+$/ && $(i+1) ~ /^[0-9]+$/) { nodes_at = i; break }
+          }
+          args = ""; tasks = ""
+          if (nodes_at > 0) {
+            for (i = 2; i < nodes_at; i++) args = (args == "" ? $i : args " " $i)
+            tasks = $(nodes_at + 1)
+          } else if (NF >= 3) {
+            args = $2
+          }
+          printf "%s|%s|%s\n", name, args, tasks
+        }'
 }
 
 variant_id() { # <name> <args>
@@ -73,20 +86,30 @@ for bin in "${BINS[@]}"; do
   name=$(basename "$rel")
   cml=$WS/examples/$dir/CMakeLists.txt
 
-  # every argv variant this example is declared with; default: no argv
-  mapfile -t VARIANTS < <(parse_cmake "$cml" | awk -F'|' -v n="$name" '$1==n {print $2}')
-  [ ${#VARIANTS[@]} -eq 0 ] && VARIANTS=("")
+  # every (argv, mpi-task-count) variant this example is declared with
+  mapfile -t VARIANTS < <(parse_cmake "$cml" | awk -F'|' -v n="$name" '$1==n {print $2 "|" $3}')
+  [ ${#VARIANTS[@]} -eq 0 ] && VARIANTS=("|")
 
   mkdir -p "$RAW/$dir"
-  for args in "${VARIANTS[@]}"; do
+  for spec in "${VARIANTS[@]}"; do
+    args=${spec%%|*}
+    tasks=${spec##*|}
     vid=$(variant_id "$name" "$args")
     run=$SCRATCH/$dir/$vid
     mkdir -p "$run"
     total=$((total + 1))
 
+    # Examples that CMake declares with an MPI task count are launched
+    # under mpirun with exactly that count, which is how upstream runs
+    # them. Everything else runs directly.
+    LAUNCH=()
+    if [ -n "$tasks" ] && [ "$tasks" != "0" ] && command -v mpirun >/dev/null 2>&1; then
+      LAUNCH=(mpirun --oversubscribe -np "$tasks")
+    fi
+
     start=$(date +%s.%N)
     # shellcheck disable=SC2086  # argv must word-split exactly as CMake declares it
-    ( cd "$run" && timeout "$TIMEOUT" "$bin" $args ) \
+    ( cd "$run" && timeout "$TIMEOUT" "${LAUNCH[@]}" "$bin" $args ) \
       >"$RAW/$dir/$vid.stdout" 2>"$RAW/$dir/$vid.stderr"
     rc=$?
     end=$(date +%s.%N)
@@ -106,6 +129,7 @@ for bin in "${BINS[@]}"; do
       echo "source:   examples/$dir/$name.c"
       echo "binary:   $bin"
       echo "argv:     $args"
+      echo "launcher: ${LAUNCH[*]:-<direct>}"
       echo "cwd:      $run"
       echo "exit:     $rc ($status)"
       echo "seconds:  $secs"
