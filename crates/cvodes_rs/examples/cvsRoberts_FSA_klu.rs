@@ -45,11 +45,21 @@ use std::any::Any;
 
 use cvodes_rs::prelude::*;
 
+/* User-defined vector accessor helpers: Ith
+   (C macro `Ith(v,i)` = `NV_Ith_S(v,i-1)`; i is 1-based). */
+
+fn Ith(v: &N_Vector, i: usize) -> sunrealtype {
+    N_VGetArrayPointer(v).expect("N_VGetArrayPointer")[i - 1]
+}
+
+fn Ith_set(v: &N_Vector, i: usize, x: sunrealtype) {
+    N_VGetArrayPointer(v).expect("N_VGetArrayPointer")[i - 1] = x;
+}
 
 /* Problem Constants */
 
-const NEQ: sunindextype = 3;
-const NNZ: sunindextype = 7; /* number of non-zero entries in the Jacobian */ /* number of equations  */
+const NEQ: sunindextype = 3; /* number of equations  */
+const NNZ: sunindextype = 7; /* number of non-zero entries in the Jacobian */
 const Y1: sunrealtype = 1.0; /* initial y components */
 const Y2: sunrealtype = 0.0;
 const Y3: sunrealtype = 0.0;

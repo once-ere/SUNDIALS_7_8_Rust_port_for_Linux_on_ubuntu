@@ -5,6 +5,6 @@ binary:   /home/nsh/Developer/github/SUNDIALS_7_8_Rust_port_for_Linux_on_ubuntu/
 argv:     
 cwd:      /home/nsh/Developer/github/SUNDIALS_7_8_Rust_port_for_Linux_on_ubuntu/build/rust-run/idas/serial/idasRoberts_klu
 exit:     0 (OK)
-seconds:  0.106
+seconds:  0.105
 stdout:   1926 bytes, sha256 cab6b0171198e9f45397d41e04e03e25e8edf3625c8d4c7ce8b2278c1cd00e93
 stderr:   0 bytes
