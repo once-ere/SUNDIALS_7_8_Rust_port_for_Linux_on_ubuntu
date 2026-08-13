@@ -91,7 +91,7 @@ cvode/serial	cvKrylovDemo_ls	2	cvKrylovDemo_ls__2	IDENTICAL	OK	OK
 cvode/serial	cvKrylovDemo_prec		cvKrylovDemo_prec	IDENTICAL	OK	OK					
 cvode/serial	cvParticle_dns		cvParticle_dns	IDENTICAL	OK	OK					
 cvode/serial	cvPendulum_dns		cvPendulum_dns	IDENTICAL	OK	OK					
-cvode/serial	cvRoberts_block_klu		cvRoberts_block_klu	NOT_PORTED	OK	NOT_PORTED					no pure-Rust counterpart (KLU/SuperLU backend)
+cvode/serial	cvRoberts_block_klu		cvRoberts_block_klu	NUMERIC	OK	OK	6	23	3.317e-02	292835211468973	line 17 field 2
 cvode/serial	cvRoberts_dns		cvRoberts_dns	IDENTICAL	OK	OK					
 cvode/serial	cvRoberts_dnsL		cvRoberts_dnsL	IDENTICAL	OK	OK					
 cvode/serial	cvRoberts_dns_constraints		cvRoberts_dns_constraints	IDENTICAL	OK	OK					

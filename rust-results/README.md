@@ -8,7 +8,7 @@ upstream serial examples printed on this machine. Same rules as
 
 | item | value |
 |---|---|
-| generated | 2026-08-13 00:21:43 UTC |
+| generated | 2026-08-13 00:25:47 UTC |
 | operating system | Ubuntu 26.04 LTS |
 | kernel / platform | Linux-7.0.0-29-generic-x86_64-with-glibc2.43 |
 | architecture | x86_64 |
@@ -37,12 +37,12 @@ nothing needed to be.
 
 ## Headline result
 
-**199 (example, argv) variants, 188 exited 0, 11 have no Rust counterpart.**
+**199 (example, argv) variants, 189 exited 0, 10 have no Rust counterpart.**
 
 | status | variants |
 |---|---|
-| OK | 188 |
-| NOT_PORTED | 11 |
+| OK | 189 |
+| NOT_PORTED | 10 |
 
 `NOT_PORTED` marks the `*_klu` examples not yet translated plus the
 9 `*_sps`/`*_slu` ones.
