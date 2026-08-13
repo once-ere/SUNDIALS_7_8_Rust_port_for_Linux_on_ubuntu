@@ -20,14 +20,21 @@ and so is the sparse direct solver that replaces SuiteSparse KLU.
 > [PR #1](https://github.com/once-ere/SUNDIALS_7_8_Rust_port_for_Linux/pull/1)
 > (merge commit
 > [`299a697`](https://github.com/once-ere/SUNDIALS_7_8_Rust_port_for_Linux/commit/299a697)).
-> The evidence directories are vendored there under
-> [`evidence/ubuntu-2604-glibc243/`](https://github.com/once-ere/SUNDIALS_7_8_Rust_port_for_Linux/tree/main/evidence/ubuntu-2604-glibc243).
+> The result directories are vendored there **at the repository root**, the
+> same layout they have here — [`c-results/`](https://github.com/once-ere/SUNDIALS_7_8_Rust_port_for_Linux/tree/main/c-results),
+> [`rust-results/`](https://github.com/once-ere/SUNDIALS_7_8_Rust_port_for_Linux/tree/main/rust-results),
+> [`differences/`](https://github.com/once-ere/SUNDIALS_7_8_Rust_port_for_Linux/tree/main/differences) and
+> [`requirements.md`](https://github.com/once-ere/SUNDIALS_7_8_Rust_port_for_Linux/blob/main/requirements.md). They briefly lived under
+> `evidence/ubuntu-2604-glibc243/`; that path is gone, and any link to it will
+> 404.
 >
-> **Use that repository if you want the port.** This one is the working
-> copy the measurement runs in: it holds the pipeline, the upstream C tree
-> symlink and the build directories the scripts write to, and the results
-> at the repository root rather than filed under a host slug. The crate
-> trees are the same code.
+> **Use that repository if you want the port.** This one is the working copy
+> the measurement runs in: it holds the pipeline, the `upstream-c` symlink at
+> the read-only SUNDIALS C tree, and the `build/` directories the scripts
+> write to. The crate trees are the same code and the result directories are
+> byte-identical — `tools/vendor_evidence.sh` there is a straight `rsync` from
+> here, with no transformation at all now that both roots sit at the same
+> depth.
 
 ## Headline results
 
