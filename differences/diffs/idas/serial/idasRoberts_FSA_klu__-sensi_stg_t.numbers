@@ -1,0 +1,5 @@
+worst relative difference 4.878e-01 (4317826142741463 ulp)
+  line 46, numeric field 2
+  C    = 108.5
+  Rust = 55.57
+lines differing: 31 of 118

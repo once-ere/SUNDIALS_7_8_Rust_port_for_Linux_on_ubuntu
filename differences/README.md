@@ -11,7 +11,7 @@ captured bytes.
 
 | item | value |
 |---|---|
-| generated | 2026-08-13 00:21:12 UTC |
+| generated | 2026-08-13 00:21:43 UTC |
 | operating system | Ubuntu 26.04 LTS |
 | kernel / platform | Linux-7.0.0-29-generic-x86_64-with-glibc2.43 |
 | architecture | x86_64 |
@@ -43,8 +43,8 @@ python3 tools/make_reports.py                    # these documents
 |---|---:|---|
 | IDENTICAL | 172 | the two stdout streams are equal byte for byte |
 | WHITESPACE | 0 | every printed character matches; only column padding differs |
-| NUMERIC | 14 | same text, same field count, at least one number differs |
-| STRUCTURAL | 2 | different lines, words or field counts |
+| NUMERIC | 16 | same text, same field count, at least one number differs |
+| STRUCTURAL | 0 | different lines, words or field counts |
 | NOT_PORTED | 11 | KLU / SuperLU_MT example, excluded by design on both sides |
 | NO_C_RUN | 0 | the C example could not be built on this machine |
 

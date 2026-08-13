@@ -17,7 +17,7 @@
 | 13 | `idasRoberts_ASAi_klu` | _(none)_ | NUMERIC | 3 / 38 | 7.556e-02 | 431008558088192 | [diff](diffs/idas/serial/idasRoberts_ASAi_klu.diff) |
 | 14 | `idasRoberts_ASAi_sps` | _(none)_ | NOT_PORTED | — | — | — | — |
 | 15 | `idasRoberts_FSA_dns` | `-sensi stg t` | IDENTICAL | — | — | — | — |
-| 16 | `idasRoberts_FSA_klu` | `-sensi stg t` | STRUCTURAL | — | — | — | [diff](diffs/idas/serial/idasRoberts_FSA_klu__-sensi_stg_t.diff) |
+| 16 | `idasRoberts_FSA_klu` | `-sensi stg t` | NUMERIC | 31 / 118 | 4.878e-01 | 4317826142741463 | [diff](diffs/idas/serial/idasRoberts_FSA_klu__-sensi_stg_t.diff) |
 | 17 | `idasRoberts_FSA_sps` | `-sensi stg t` | NOT_PORTED | — | — | — | — |
 | 18 | `idasRoberts_dns` | _(none)_ | IDENTICAL | — | — | — | — |
 | 19 | `idasRoberts_klu` | _(none)_ | NUMERIC | 1 / 40 | 1.918e-02 | 140737488355328 | [diff](diffs/idas/serial/idasRoberts_klu.diff) |

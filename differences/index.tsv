@@ -109,7 +109,7 @@ cvodes/serial	cvsAdvDiff_bndL		cvsAdvDiff_bndL	IDENTICAL	OK	OK
 cvodes/serial	cvsAnalytic_mels		cvsAnalytic_mels	IDENTICAL	OK	OK					
 cvodes/serial	cvsAnalytic_mels	cvodes.max_order 3	cvsAnalytic_mels__cvodes.max_order_3	IDENTICAL	OK	OK					
 cvodes/serial	cvsDirectDemo_ls		cvsDirectDemo_ls	IDENTICAL	OK	OK					
-cvodes/serial	cvsDiurnal_FSA_kry	-sensi sim t	cvsDiurnal_FSA_kry__-sensi_sim_t	STRUCTURAL	OK	OK					line 62: text differs, not just numbers
+cvodes/serial	cvsDiurnal_FSA_kry	-sensi sim t	cvsDiurnal_FSA_kry__-sensi_sim_t	NUMERIC	OK	OK	51	143	1.259e+00	9457732915887603712	line 79 field 0
 cvodes/serial	cvsDiurnal_FSA_kry	-sensi stg t	cvsDiurnal_FSA_kry__-sensi_stg_t	IDENTICAL	OK	OK					
 cvodes/serial	cvsDiurnal_kry		cvsDiurnal_kry	IDENTICAL	OK	OK					
 cvodes/serial	cvsDiurnal_kry_bp		cvsDiurnal_kry_bp	IDENTICAL	OK	OK					
@@ -169,7 +169,7 @@ idas/serial	idasRoberts_ASAi_dns		idasRoberts_ASAi_dns	IDENTICAL	OK	OK
 idas/serial	idasRoberts_ASAi_klu		idasRoberts_ASAi_klu	NUMERIC	OK	OK	3	38	7.556e-02	431008558088192	line 21 field 0
 idas/serial	idasRoberts_ASAi_sps		idasRoberts_ASAi_sps	NOT_PORTED	-	NOT_PORTED					no pure-Rust counterpart (KLU/SuperLU backend)
 idas/serial	idasRoberts_FSA_dns	-sensi stg t	idasRoberts_FSA_dns__-sensi_stg_t	IDENTICAL	OK	OK					
-idas/serial	idasRoberts_FSA_klu	-sensi stg t	idasRoberts_FSA_klu__-sensi_stg_t	STRUCTURAL	OK	OK					line 64: text differs, not just numbers
+idas/serial	idasRoberts_FSA_klu	-sensi stg t	idasRoberts_FSA_klu__-sensi_stg_t	NUMERIC	OK	OK	31	118	4.878e-01	4317826142741463	line 46 field 2
 idas/serial	idasRoberts_FSA_sps	-sensi stg t	idasRoberts_FSA_sps__-sensi_stg_t	NOT_PORTED	-	NOT_PORTED					no pure-Rust counterpart (KLU/SuperLU backend)
 idas/serial	idasRoberts_dns		idasRoberts_dns	IDENTICAL	OK	OK					
 idas/serial	idasRoberts_klu		idasRoberts_klu	NUMERIC	OK	OK	1	40	1.918e-02	140737488355328	line 39 field 0

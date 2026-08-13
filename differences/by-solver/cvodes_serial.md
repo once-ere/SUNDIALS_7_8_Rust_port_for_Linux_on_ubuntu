@@ -10,7 +10,7 @@
 | 6 | `cvsAnalytic_mels` | _(none)_ | IDENTICAL | — | — | — | — |
 | 7 | `cvsAnalytic_mels` | `cvodes.max_order 3` | IDENTICAL | — | — | — | — |
 | 8 | `cvsDirectDemo_ls` | _(none)_ | IDENTICAL | — | — | — | — |
-| 9 | `cvsDiurnal_FSA_kry` | `-sensi sim t` | STRUCTURAL | — | — | — | [diff](diffs/cvodes/serial/cvsDiurnal_FSA_kry__-sensi_sim_t.diff) |
+| 9 | `cvsDiurnal_FSA_kry` | `-sensi sim t` | NUMERIC | 51 / 143 | 1.259e+00 | 9457732915887603712 | [diff](diffs/cvodes/serial/cvsDiurnal_FSA_kry__-sensi_sim_t.diff) |
 | 10 | `cvsDiurnal_FSA_kry` | `-sensi stg t` | IDENTICAL | — | — | — | — |
 | 11 | `cvsDiurnal_kry` | _(none)_ | IDENTICAL | — | — | — | — |
 | 12 | `cvsDiurnal_kry_bp` | _(none)_ | IDENTICAL | — | — | — | — |
