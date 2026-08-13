@@ -1,4 +1,10 @@
 example:  idasRoberts_ASAi_klu
 crate:    idas_rs
+source:   crates/idas_rs/examples/idasRoberts_ASAi_klu.rs
+binary:   /home/nsh/Developer/github/SUNDIALS_7_8_Rust_port_for_Linux_on_ubuntu/target/release/examples/idasRoberts_ASAi_klu
 argv:     
-status:   NOT_PORTED (no release binary at /home/nsh/Developer/github/SUNDIALS_7_8_Rust_port_for_Linux_on_ubuntu/target/release/examples/idasRoberts_ASAi_klu)
+cwd:      /home/nsh/Developer/github/SUNDIALS_7_8_Rust_port_for_Linux_on_ubuntu/build/rust-run/idas/serial/idasRoberts_ASAi_klu
+exit:     0 (OK)
+seconds:  0.105
+stdout:   1200 bytes, sha256 a3dfc22c28117203e315b9e92f8cd7d7d3435e71dcf731df10289f50e1a13012
+stderr:   0 bytes

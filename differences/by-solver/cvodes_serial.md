@@ -27,7 +27,7 @@
 | 23 | `cvsPendulum_dns` | _(none)_ | IDENTICAL | — | — | — | — |
 | 24 | `cvsRoberts_ASAi_dns` | _(none)_ | IDENTICAL | — | — | — | — |
 | 25 | `cvsRoberts_ASAi_dns_constraints` | _(none)_ | IDENTICAL | — | — | — | — |
-| 26 | `cvsRoberts_ASAi_klu` | _(none)_ | NOT_PORTED | — | — | — | — |
+| 26 | `cvsRoberts_ASAi_klu` | _(none)_ | NUMERIC | 7 / 61 | 6.061e-02 | 422212465065984 | [diff](diffs/cvodes/serial/cvsRoberts_ASAi_klu.diff) |
 | 27 | `cvsRoberts_ASAi_sps` | _(none)_ | NOT_PORTED | — | — | — | — |
 | 28 | `cvsRoberts_FSA_dns` | `-sensi sim t` | IDENTICAL | — | — | — | — |
 | 29 | `cvsRoberts_FSA_dns` | `-sensi stg1 t` | IDENTICAL | — | — | — | — |

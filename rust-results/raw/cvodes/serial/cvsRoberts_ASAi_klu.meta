@@ -1,4 +1,10 @@
 example:  cvsRoberts_ASAi_klu
 crate:    cvodes_rs
+source:   crates/cvodes_rs/examples/cvsRoberts_ASAi_klu.rs
+binary:   /home/nsh/Developer/github/SUNDIALS_7_8_Rust_port_for_Linux_on_ubuntu/target/release/examples/cvsRoberts_ASAi_klu
 argv:     
-status:   NOT_PORTED (no release binary at /home/nsh/Developer/github/SUNDIALS_7_8_Rust_port_for_Linux_on_ubuntu/target/release/examples/cvsRoberts_ASAi_klu)
+cwd:      /home/nsh/Developer/github/SUNDIALS_7_8_Rust_port_for_Linux_on_ubuntu/build/rust-run/cvodes/serial/cvsRoberts_ASAi_klu
+exit:     0 (OK)
+seconds:  0.105
+stdout:   1879 bytes, sha256 ac1dd14d9047794a9f28e606fae6bd39877dfafab39e81add93d6edd60c4cad1
+stderr:   0 bytes
