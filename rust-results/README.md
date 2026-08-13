@@ -8,7 +8,7 @@ upstream serial examples printed on this machine. Same rules as
 
 | item | value |
 |---|---|
-| generated | 2026-08-13 00:25:47 UTC |
+| generated | 2026-08-13 00:40:35 UTC |
 | operating system | Ubuntu 26.04 LTS |
 | kernel / platform | Linux-7.0.0-29-generic-x86_64-with-glibc2.43 |
 | architecture | x86_64 |
@@ -37,28 +37,23 @@ nothing needed to be.
 
 ## Headline result
 
-**199 (example, argv) variants, 189 exited 0, 10 have no Rust counterpart.**
+**199 (example, argv) variants, 190 exited 0, 9 have no Rust counterpart.**
 
 | status | variants |
 |---|---|
-| OK | 189 |
-| NOT_PORTED | 10 |
+| OK | 190 |
+| NOT_PORTED | 9 |
 
-`NOT_PORTED` marks the `*_klu` examples not yet translated plus the
-9 `*_sps`/`*_slu` ones.
-Both KLU and SuperLU_MT are third-party sparse-direct **C** libraries,
-and a port whose hard rules are *no `unsafe`, no FFI, no external
-crates* cannot call them; there is no pure-Rust equivalent in this
-tree to translate them against. This is a real gap in coverage, not a
-bookkeeping artefact:
+`NOT_PORTED` marks the 9 `*_sps` / `*_slu` examples, and only those.
+They need SuperLU_MT, a third-party sparse-direct **C** library that a
+port forbidding `unsafe`, FFI and external crates cannot call --  and
+that is not in the Ubuntu archive at any version, so the C side cannot
+build them either. Nothing is lost by their absence.
 
-* the 9 SuperLU_MT examples cannot be built on the C side either —
-  SuperLU_MT is not packaged for Ubuntu at any version — so nothing
-  is lost by their absence here;
-* the KLU examples **do** build and run on the C side (see
-  `c-results/`), so for those the C column exists and the Rust column
-  does not. Closing that gap needs a sparse direct
-  solver in `sundials_core`, which is a separate project.
+The 11 `*_klu` examples *are* ported. SUNDIALS' sparse solver wraps
+KLU (LGPL, likewise unreachable), so they run on the independent
+pure-Rust sparse LU in `crates/sundials_core/src/sundials_sparse_lu.rs`
+instead. Four of them still match the C byte for byte.
 
 See [`../requirements.md`](../requirements.md) §3.
 

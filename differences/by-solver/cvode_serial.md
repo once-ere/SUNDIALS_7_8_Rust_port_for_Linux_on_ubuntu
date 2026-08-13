@@ -16,7 +16,7 @@
 | 12 | `cvKrylovDemo_prec` | _(none)_ | IDENTICAL | — | — | — | — |
 | 13 | `cvParticle_dns` | _(none)_ | IDENTICAL | — | — | — | — |
 | 14 | `cvPendulum_dns` | _(none)_ | IDENTICAL | — | — | — | — |
-| 15 | `cvRoberts_block_klu` | _(none)_ | NUMERIC | 6 / 23 | 3.317e-02 | 292835211468973 | [diff](diffs/cvode/serial/cvRoberts_block_klu.diff) |
+| 15 | `cvRoberts_block_klu` | _(none)_ | NUMERIC | 6 / 23 | 2.500e-01 | 2251799813685248 | [diff](diffs/cvode/serial/cvRoberts_block_klu.diff) |
 | 16 | `cvRoberts_dns` | _(none)_ | IDENTICAL | — | — | — | — |
 | 17 | `cvRoberts_dnsL` | _(none)_ | IDENTICAL | — | — | — | — |
 | 18 | `cvRoberts_dns_constraints` | _(none)_ | IDENTICAL | — | — | — | — |

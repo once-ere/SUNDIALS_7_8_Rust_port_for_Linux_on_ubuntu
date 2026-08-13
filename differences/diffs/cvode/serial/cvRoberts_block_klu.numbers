@@ -1,5 +1,5 @@
-worst relative difference 3.317e-02 (292835211468973 ulp)
-  line 17, numeric field 2
-  C    = 5.387257e-08
-  Rust = 5.572063e-08
+worst relative difference 2.500e-01 (2251799813685248 ulp)
+  line 21, numeric field 1
+  C    = 4.0
+  Rust = 3.0
 lines differing: 6 of 23

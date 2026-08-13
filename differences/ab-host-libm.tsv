@@ -20,6 +20,8 @@ cvode/serial	cvVdp_auto_nls		cvVdp_auto_nls	IDENTICAL	IDENTICAL
 cvode/serial	cvKrylovDemo_ls	0 1	cvKrylovDemo_ls__0_1	IDENTICAL	IDENTICAL
 cvode/serial	cvAdvDiff_bndL		cvAdvDiff_bndL	IDENTICAL	IDENTICAL
 cvode/serial	cvRoberts_dnsL		cvRoberts_dnsL	IDENTICAL	IDENTICAL
+cvode/serial	cvRoberts_block_klu		cvRoberts_block_klu	NUMERIC	DIFFERS
+cvode/serial	cvRoberts_klu		cvRoberts_klu	NUMERIC	DIFFERS
 cvodes/serial	cvsAdvDiff_ASAi_bnd		cvsAdvDiff_ASAi_bnd	IDENTICAL	IDENTICAL
 cvodes/serial	cvsAdvDiff_FSA_non	-sensi sim t	cvsAdvDiff_FSA_non__-sensi_sim_t	IDENTICAL	IDENTICAL
 cvodes/serial	cvsAdvDiff_FSA_non	-sensi stg t	cvsAdvDiff_FSA_non__-sensi_stg_t	IDENTICAL	IDENTICAL
@@ -27,7 +29,7 @@ cvodes/serial	cvsAdvDiff_bnd		cvsAdvDiff_bnd	IDENTICAL	IDENTICAL
 cvodes/serial	cvsAnalytic_mels		cvsAnalytic_mels	IDENTICAL	IDENTICAL
 cvodes/serial	cvsAnalytic_mels	cvodes.max_order 3	cvsAnalytic_mels__cvodes.max_order_3	IDENTICAL	IDENTICAL
 cvodes/serial	cvsDirectDemo_ls		cvsDirectDemo_ls	IDENTICAL	IDENTICAL
-cvodes/serial	cvsDiurnal_FSA_kry	-sensi sim t	cvsDiurnal_FSA_kry__-sensi_sim_t	STRUCTURAL	IDENTICAL
+cvodes/serial	cvsDiurnal_FSA_kry	-sensi sim t	cvsDiurnal_FSA_kry__-sensi_sim_t	NUMERIC	IDENTICAL
 cvodes/serial	cvsDiurnal_FSA_kry	-sensi stg t	cvsDiurnal_FSA_kry__-sensi_stg_t	IDENTICAL	IDENTICAL
 cvodes/serial	cvsDiurnal_kry		cvsDiurnal_kry	IDENTICAL	IDENTICAL
 cvodes/serial	cvsDiurnal_kry_bp		cvsDiurnal_kry_bp	IDENTICAL	IDENTICAL
@@ -53,6 +55,9 @@ cvodes/serial	cvsRoberts_dns_uw		cvsRoberts_dns_uw	IDENTICAL	IDENTICAL
 cvodes/serial	cvsKrylovDemo_ls	0 1	cvsKrylovDemo_ls__0_1	IDENTICAL	IDENTICAL
 cvodes/serial	cvsAdvDiff_bndL		cvsAdvDiff_bndL	IDENTICAL	IDENTICAL
 cvodes/serial	cvsRoberts_dnsL		cvsRoberts_dnsL	IDENTICAL	IDENTICAL
+cvodes/serial	cvsRoberts_ASAi_klu		cvsRoberts_ASAi_klu	NUMERIC	DIFFERS
+cvodes/serial	cvsRoberts_FSA_klu	-sensi stg1 t	cvsRoberts_FSA_klu__-sensi_stg1_t	NUMERIC	DIFFERS
+cvodes/serial	cvsRoberts_klu		cvsRoberts_klu	NUMERIC	DIFFERS
 kinsol/serial	kinAnalytic_fp		kinAnalytic_fp	IDENTICAL	IDENTICAL
 kinsol/serial	kinAnalytic_fp	--damping_fp 0.5	kinAnalytic_fp__--damping_fp_0.5	IDENTICAL	IDENTICAL
 kinsol/serial	kinAnalytic_fp	--damping_fn	kinAnalytic_fp__--damping_fn	IDENTICAL	IDENTICAL
@@ -73,6 +78,7 @@ kinsol/serial	kinLaplace_picard_kry		kinLaplace_picard_kry	IDENTICAL	IDENTICAL
 kinsol/serial	kinRoberts_fp		kinRoberts_fp	IDENTICAL	IDENTICAL
 kinsol/serial	kinRoberts_fp	kinsol.m_aa 1	kinRoberts_fp__kinsol.m_aa_1	IDENTICAL	IDENTICAL
 kinsol/serial	kinRoboKin_dns		kinRoboKin_dns	IDENTICAL	IDENTICAL
+kinsol/serial	kinFerTron_klu		kinFerTron_klu	IDENTICAL	IDENTICAL
 ida/serial	idaAnalytic_mels		idaAnalytic_mels	IDENTICAL	IDENTICAL
 ida/serial	idaAnalytic_mels	ida.scalar_tolerances 1e-3 1e-8	idaAnalytic_mels__ida.scalar_tolerances_1e-3_1e-8	IDENTICAL	IDENTICAL
 ida/serial	idaFoodWeb_bnd		idaFoodWeb_bnd	IDENTICAL	IDENTICAL
@@ -84,6 +90,8 @@ ida/serial	idaKrylovDemo_ls	1	idaKrylovDemo_ls__1	IDENTICAL	IDENTICAL
 ida/serial	idaKrylovDemo_ls	2	idaKrylovDemo_ls__2	IDENTICAL	IDENTICAL
 ida/serial	idaRoberts_dns		idaRoberts_dns	IDENTICAL	IDENTICAL
 ida/serial	idaSlCrank_dns		idaSlCrank_dns	IDENTICAL	IDENTICAL
+ida/serial	idaHeat2D_klu		idaHeat2D_klu	IDENTICAL	IDENTICAL
+ida/serial	idaRoberts_klu		idaRoberts_klu	IDENTICAL	IDENTICAL
 idas/serial	idasAkzoNob_ASAi_dns		idasAkzoNob_ASAi_dns	IDENTICAL	IDENTICAL
 idas/serial	idasAkzoNob_dns		idasAkzoNob_dns	IDENTICAL	IDENTICAL
 idas/serial	idasAnalytic_mels		idasAnalytic_mels	IDENTICAL	IDENTICAL
@@ -100,6 +108,9 @@ idas/serial	idasRoberts_FSA_dns	-sensi stg t	idasRoberts_FSA_dns__-sensi_stg_t	I
 idas/serial	idasRoberts_dns		idasRoberts_dns	IDENTICAL	IDENTICAL
 idas/serial	idasSlCrank_dns		idasSlCrank_dns	NUMERIC	IDENTICAL
 idas/serial	idasSlCrank_FSA_dns		idasSlCrank_FSA_dns	NUMERIC	IDENTICAL
+idas/serial	idasRoberts_ASAi_klu		idasRoberts_ASAi_klu	NUMERIC	DIFFERS
+idas/serial	idasRoberts_FSA_klu	-sensi stg t	idasRoberts_FSA_klu__-sensi_stg_t	NUMERIC	DIFFERS
+idas/serial	idasRoberts_klu		idasRoberts_klu	IDENTICAL	IDENTICAL
 arkode/C_serial	ark_analytic		ark_analytic	IDENTICAL	IDENTICAL
 arkode/C_serial	ark_analytic	arkode.scalar_tolerances 1e-6 1e-8 arkode.table_names ARKODE_ESDIRK547L2SA_7_4_5 ARKODE_ERK_NONE	ark_analytic__arkode.scalar_tolerances_1e-6_1e-8_arkode.table_names_ARKODE_ESDIRK547L2SA_7_4_5_ARKODE_ERK_NONE	IDENTICAL	IDENTICAL
 arkode/C_serial	ark_advection_diffusion_reaction_splitting		ark_advection_diffusion_reaction_splitting	IDENTICAL	IDENTICAL

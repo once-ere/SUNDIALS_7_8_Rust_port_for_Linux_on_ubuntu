@@ -29,13 +29,53 @@ tools/ab_host_libm.sh
 
 | build | comparable variants | byte-identical to the pristine C |
 |---|---:|---:|
-| default (pure-Rust libm) | 179 | **171** |
-| `--features host-libm` | 179 | **179** |
+| default | 190 | **175** |
+| `--features host-libm` | 190 | **183** |
 
-**Zero variants remain divergent when the host libm is restored.**
-That is the measurement behind the claim of **0 port defects**: it is not
-an inspection result or a judgement, it is a controlled A/B with one
-variable.
+The seven that the switch does not explain are named below, and they are
+**exactly the seven `*_klu` examples that still differ** — a second,
+separate substitution with its own cause.
+
+**No variant is left unaccounted for**, which is the measurement behind
+the claim of **0 port defects**: not an inspection result or a judgement,
+but two controlled comparisons each with one variable.
+
+## Two substitutions, two causes
+
+This port replaces two pieces of third-party numerics, for the same
+licensing reason, and each shows up in a different set of variants:
+
+| substitution | why | isolated by |
+|---|---|---|
+| host libm → [`sundials_libm`](../crates/sundials_core/src/sundials_libm.rs) | glibc's `sin`/`cos`/`atan`/`asin`/`acos` are LGPL | `--features host-libm` |
+| SuiteSparse KLU → [`sundials_sparse_lu`](../crates/sundials_core/src/sundials_sparse_lu.rs) | KLU is LGPL, and FFI is forbidden | only affects the 11 `*_klu` examples |
+
+There is no `host-klu` control build, because there is nothing to switch
+to: KLU cannot be linked at all under this port's rules. What stands in for
+it is direct verification of the replacement — the sparse LU is checked
+against dense Gaussian elimination on 300 random systems (worst relative
+residual 7.3e-16), and `idaHeat2D_klu`'s hand-packed Jacobian is checked
+entry by entry against an independently constructed reference and against
+finite differences of the residual.
+
+Four of the eleven `*_klu` examples match the C **byte for byte** anyway:
+`idaHeat2D_klu`, `idaRoberts_klu`, `idasRoberts_klu` and `kinFerTron_klu`.
+
+### The pivoting rule was not a free choice
+
+The sparse LU originally used pure partial pivoting — largest magnitude
+wins. `idaHeat2D_klu` exposed why that is wrong here. Its boundary
+equations are literally `e_i`: a unit diagonal and nothing else. Pure
+partial pivoting discards that `1` in favour of a neighbouring `-1/dx^2`,
+which mixes the boundary and interior unknowns and lets round-off into
+components the problem pins exactly. The solution then grew to 8.5e+04
+where the C decays to zero — a qualitative divergence, not a last-bit one.
+
+Switching to KLU's documented default, threshold partial pivoting with a
+diagonal preference at `tol = 0.001`, fixed it and made three further
+variants byte-identical. The lesson is worth recording: for these matrices
+the pivoting rule is output-critical, and matching KLU's was the faithful
+choice rather than the merely defensible one.
 
 Raw data: [`ab-host-libm.tsv`](ab-host-libm.tsv), one row per variant, with
 the default-build class and the host-libm-build class side by side.
