@@ -80,33 +80,35 @@ choice rather than the merely defensible one.
 Raw data: [`ab-host-libm.tsv`](ab-host-libm.tsv), one row per variant, with
 the default-build class and the host-libm-build class side by side.
 
-## The eight variants, and what they have in common
+## The variants the libm accounts for
 
-| variant | worst relative difference | elementary functions on its hot path |
-|---|---|---|
-| `arkode/C_serial/ark_analytic_lsrk` | 2.8e-01 | `sinh`, `cosh`, `acosh`, `log` (LSRK stage-count formula) |
-| `arkode/C_serial/ark_analytic_lsrk_varjac` | 2.0e-01 | same |
-| `arkode/C_serial/ark_analytic_lsrk_domeigest` | 2.6e-01 | same |
-| `arkode/C_serial/ark_analytic_lsrk_domeigest` (2nd argv) | 6.0e-01 | same |
-| `arkode/C_serial/ark_kpr_mri` (argv variant) | 1.3e-03 | `sin`, `cos` in the reference solution |
-| `cvodes/serial/cvsDiurnal_FSA_kry -sensi sim t` | (structural) | `sin` in the diurnal source term |
-| `idas/serial/idasSlCrank_dns` | 7.4e-13 | `sin`, `cos` in the crank geometry |
-| `idas/serial/idasSlCrank_FSA_dns` | (step counts) | same |
+These differ in the default build and match under `--features host-libm`:
 
-Four of the eight are the ARKODE **LSRK** examples. That is not a
-coincidence and it was predictable: `SUNRsinh`, `SUNRcosh`, `SUNRacosh` and
-`SUNRlog` are called from exactly one place in the whole library,
+| variant | elementary functions on its hot path |
+|---|---|
+| `cvodes/serial/cvsDiurnal_FSA_kry__-sensi_sim_t` | `sin` in the diurnal source term |
+| `idas/serial/idasSlCrank_dns` | `sin`, `cos` in the crank geometry |
+| `idas/serial/idasSlCrank_FSA_dns` | same |
+| `arkode/C_serial/ark_analytic_lsrk` | `sinh`, `cosh`, `acosh`, `log` (LSRK stage-count formula) |
+| `arkode/C_serial/ark_analytic_lsrk_varjac` | same |
+| `arkode/C_serial/ark_analytic_lsrk_domeigest` | same |
+| `arkode/C_serial/ark_analytic_lsrk_domeigest__arkid.dom_eig_est_init_preprocess_iters_1_sundomeigestimator.max_iters_1` | same |
+| `arkode/C_serial/ark_kpr_mri__10_4_0.001_-100_100_0.5_1` | `sin`, `cos` in the reference solution |
+
+The ARKODE **LSRK** entries are not a coincidence and were predictable:
+`SUNRsinh`, `SUNRcosh`, `SUNRacosh` and `SUNRlog` are called from exactly
+one place in the whole library,
 [`crates/arkode_rs/src/arkode_lsrkstep.rs:87`](../crates/arkode_rs/src/arkode_lsrkstep.rs:87),
 and they feed the formula that chooses the *number of stages*. A last-bit
 difference there changes an integer, which changes the method, which
 changes everything downstream. The sibling Linux repository observed the
-same four variants breaking on Arch's glibc 2.44 for the same reason —
-glibc changed `sinh`, `cosh` and `acosh` between 2.41 and 2.44.
+same variants breaking on Arch's glibc 2.44 for the same reason — glibc
+changed `sinh`, `cosh` and `acosh` between 2.41 and 2.44.
 
-The other four are ordinary adaptive-integrator chaos: a one-ulp
-difference in `sin` inside a right-hand side moves an error estimate,
-which moves a step-size decision, which moves the whole trajectory. Note
-what the magnitudes actually are — `idasSlCrank_dns` differs in the 13th
+The rest is ordinary adaptive-integrator chaos: a one-ulp difference in
+`sin` inside a right-hand side moves an error estimate, which moves a
+step-size decision, which moves the whole trajectory. Note what the
+magnitudes actually are — `idasSlCrank_dns` differs in the 13th
 significant digit of one printed number, and `ark_kpr_mri` in the third
 digit of one error estimate on one of 74 lines.
 
@@ -129,8 +131,13 @@ column failed to hit; it is the less accurate of the two.
 
 ## What would count as a defect
 
-Any row of `ab-host-libm.tsv` whose `host_libm_class` is `DIFFERS`.
-There are none. If a future change introduces one, `tools/ab_host_libm.sh`
-prints it under "variants that remain divergent even with the host libm
-(real port defects)" and it must be fixed before the change lands
-(`../CLAUDE.md` § "Classifying a divergence").
+A row of `ab-host-libm.tsv` whose `host_libm_class` is `DIFFERS` **and
+whose example is not one of the eleven `*_klu`**. The `*_klu` rows differ
+under both builds by construction, because the `host-libm` switch does not
+touch the sparse LU — there is no KLU to switch back to. They are covered
+instead by the direct verification described above.
+
+On that criterion there are currently no defects. `tools/ab_host_libm.sh`
+prints every still-divergent variant under "variants that remain divergent
+even with the host libm"; a new non-`klu` entry there must be fixed before
+the change lands (`../CLAUDE.md` § "Classifying a divergence").
