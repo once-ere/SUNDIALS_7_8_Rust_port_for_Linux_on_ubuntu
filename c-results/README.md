@@ -9,7 +9,7 @@ filtered, rounded or edited.
 
 | item | value |
 |---|---|
-| generated | 2026-08-13 00:40:35 UTC |
+| generated | 2026-08-13 01:02:16 UTC |
 | operating system | Ubuntu 26.04 LTS |
 | kernel / platform | Linux-7.0.0-29-generic-x86_64-with-glibc2.43 |
 | architecture | x86_64 |
@@ -22,10 +22,12 @@ filtered, rounded or edited.
 | cargo | cargo 1.96.1 (356927216 2026-06-26) |
 | CPU cores | 24 |
 
-The C sources are the upstream tree, used read-only:
-`/home/nsh/Developer/sundials-7.8.0` (reachable in this repository as
-the `upstream-c` symlink). The copy under `examples/` in this
-repository is the same tree and supplies the CMake tuples that decide
+The C sources are an unpacked SUNDIALS 7.8.0 tree, used read-only. On
+the machine above it was `/home/nsh/Developer/sundials-7.8.0`, reached
+through the `upstream-c` symlink; that path is recorded in every
+`.meta` file and is provenance, not a dependency — point the symlink
+at your own copy and the pipeline reproduces. The vendored `examples/`
+tree is the same sources, and supplies the CMake tuples that decide
 which command-line variants each example is run with.
 
 ## How to reproduce all of it
@@ -76,23 +78,20 @@ a byte comparison:
 
 | set | variants | reproduced byte for byte |
 |---|---:|---|
-| the six *serial* directories (the compared set) | 179 | **all of them** |
-| every Rust example (`rust-results/`) | 179 | **all of them** |
-| `*/C_openmp` and `*/F2003_openmp` | 12 | 6 of them differ between runs |
+| the six *serial* directories (the compared set) | 190 | **all of them** |
+| every Rust example (`rust-results/`) | 199 | **all of them** |
+| `*/C_openmp` and `*/F2003_openmp` | 11 | 6 of them differ between runs |
 
-The six that move are OpenMP examples run with a thread count as argv:
-`ark_heat1D_omp 4`, `idaFoodWeb_kry_omp 4`, `idasFoodWeb_kry_omp 4`,
-`kinFoodWeb_kry_omp 4`, and `idaHeat2D_kry_omp_f2003` at 4 and 8
-threads. This is expected and is not a defect in anything: an OpenMP
+The 6 that move are OpenMP examples run with a thread count as argv: `ark_heat1D_omp 4`, `idaFoodWeb_kry_omp 4`, `idasFoodWeb_kry_omp 4`, `kinFoodWeb_kry_omp 4`, `idaHeat2D_kry_omp_f2003 4`, `idaHeat2D_kry_omp_f2003 8`. This is expected and is not a defect in anything: an OpenMP
 reduction sums partial results in whatever order the threads finish, so
 a dot product or a norm differs in its last bits from run to run, and
 inside an iterative solver that changes the iteration counts. Compare
 `kinFoodWeb_kry_omp 4`, which reported `nni = 7, nli = 229` on one run
 and `nni = 10, nli = 378` on the next.
 
-None of the six is in the compared set, so `differences/` is unaffected.
-It is recorded here because a reader is entitled to know which numbers
-in this directory are stable and which are not.
+None of the 6 is in the compared set, so `differences/` is
+unaffected. It is recorded here because a reader is entitled to know which
+numbers in this directory are stable and which are not.
 
 ## Per-solver tables (serial examples — these are the ones with a Rust counterpart)
 
@@ -102,6 +101,17 @@ in this directory are stable and which are not.
 * [IDA — `ida/serial`](by-solver/ida_serial.md) — 13 variants
 * [IDAS — `idas/serial`](by-solver/idas_serial.md) — 19 variants
 * [KINSOL — `kinsol/serial`](by-solver/kinsol_serial.md) — 21 variants
+
+## Runs that exited 0 but did not succeed
+
+Exit status is not the whole story: 1 of the 337 runs
+returned 0 while their own output reports a failed solve. None is in the
+compared set, so `differences/` is unaffected, but a table of exit codes
+alone would read as though everything worked.
+
+| directory | variant | what it reports |
+|---|---|---|
+| `arkode/CXX_lapack` | `ark_heat2D_lsrk_domeigest` | ARKodeEvolve returned with flag = -99 — `lsrkStep_ComputeNewDomEig`: SUNDomEigEstimator_Estimate failed (arkode_lsrkstep.c:2898) |
 
 ## Other example families that were also built and run
 
@@ -151,13 +161,24 @@ instruction was to build and execute *all* examples.
 | `kinsol/F2003_serial` | 4 | yes |
 | `kinsol/parallel` | 2 | yes |
 
-## Example families that could not be built here
+## Which optional backends were reachable
 
-See [`../requirements.md`](../requirements.md) for the probe results and
-the exact `apt` command. In short: MPI headers, KLU, SuperLU_MT,
-SuperLU_DIST, hypre, PETSc, Trilinos, Kokkos, MAGMA, Ginkgo, RAJA,
-oneMKL and XBraid are absent, which removes the `parallel`, `parhyp`,
-`petsc`, `cuda`, `raja`, `kokkos`, `ginkgo`, `magma`, `superludist`,
-`trilinos`, `CXX_xbraid`, `CXX_onemkl`, `CXX_sycl` and the `*_klu` /
-`*_sps` / `*_slu` examples from this run.
+Read off the run itself: a backend counts as present here when the
+examples that need it produced rows in `index.tsv`. See
+[`../requirements.md`](../requirements.md) for the probe results and the
+exact `apt` command.
+
+| backend | example variants that ran | on this machine |
+|---|---:|---|
+| KLU (SuiteSparse) | 15 | **present** |
+| SuperLU_MT | 0 | absent |
+| MPI | 52 | **present** |
+| hypre | 10 | **present** |
+| PETSc | 0 | absent |
+| LAPACK | 1 | **present** |
+| CUDA / RAJA / Kokkos / MAGMA / Ginkgo / SYCL / XBraid | 0 | absent |
+
+The absent ones remove their example families from this run entirely --
+there is no output on either side, so nothing is being hidden by their
+absence.
 
