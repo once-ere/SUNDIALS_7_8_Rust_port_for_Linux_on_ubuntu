@@ -118,9 +118,15 @@ is in the tool or in the port.
 
 A Rust output that differs from the C output is a **port defect** only if
 it still differs when the port is built `--features host-libm`. That is
-what `tools/ab_host_libm.sh` decides, and it is the only admissible
-evidence. Fix defects; document everything else with its measured
-attribution.
+what `tools/ab_host_libm.sh` decides.
+
+**One carve-out, and only one.** The switch moves the libm and nothing
+else, so it says nothing about the eleven `*_klu` examples: they run on the
+pure-Rust sparse LU under *both* builds and differ either way by
+construction. They are attributed instead by direct verification of the
+replacement solver (`differences/ATTRIBUTION.md`). Any **other** variant
+that survives the switch is a defect. Fix defects; document everything else
+with its measured attribution.
 
 ## Workflow
 
