@@ -21,7 +21,7 @@ reference examples, not "close enough".
 > **153 IDENTICAL / 26 reference-side divergences / 20 excluded**, 0 port
 > defects, and the deterministic `pow` is bit-exact against the native glibc
 > `pow` over 25.9 million measured inputs. The authoritative statements are
-> in [`README.md`](README.md), [`current_status.md`](current_status.md) and
+> in [`README.md`](README.md), [`current_status.md`](https://github.com/once-ere/SUNDIALS_7_8_Rust_port_for_Linux/blob/main/current_status.md) and
 > **Part A** of [`VERIFICATION.md`](VERIFICATION.md).
 >
 > **This guide is inherited, essentially unchanged, from the sibling
