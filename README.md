@@ -272,6 +272,29 @@ diff c-results/raw/cvode/serial/cvRoberts_dns.stdout \
 | the sparse-LU verification | no — it is checked against dense elimination and finite differences, not against a host library |
 | the ulp figures in `LIBM.md` | no — they are against a 113-bit reference |
 | the *agreement* figures in `LIBM.md` | **yes** — they describe glibc 2.43 |
+| the `.stderr` captures of the MPI examples | **yes** — see below |
+
+**A worked example of that last row.** On 2026-08-14 a re-run moved 63
+`.stderr` captures that had never moved before — every MPI example, each
+gaining the same complaint from OpenMPI's topology layer:
+
+```
+hwloc 2.13.0 received invalid information.
+Failed with error: intersection without inclusion
+while inserting Group0 (P#16 subtype Cluster groupkind 222-0 ...)
+```
+
+That is hwloc mis-reading this CPU's hybrid core layout. Nothing in this
+repository changed; the host's view of its own topology did. It is worth
+knowing because 63 moved files look alarming in a `git diff`, and the reason
+they are harmless is checkable rather than a matter of trust: none of them is
+in the compared set, `tools/compare_results.py` opens only `.stdout`, and all
+337 runs still exited 0 with unchanged `.stdout`.
+
+```bash
+git log --stat -1 08dd895 -- c-results | grep stderr | head
+grep -rl hwloc c-results/raw --include='*.stderr' | wc -l
+```
 
 ## Documentation
 
