@@ -63,7 +63,7 @@ ways by `tools/compare_pristine_c.sh`.
 The C and the Rust agree with each other and disagree with the shipped
 reference, every time. **The references are stale; the translation is not
 wrong anywhere.** Raw table:
-[`evidence/linux-x86_64-glibc239/pristine_c_comparison.txt`](evidence/linux-x86_64-glibc239/pristine_c_comparison.txt).
+[`evidence/linux-x86_64-glibc239/pristine_c_comparison.txt`](https://github.com/once-ere/SUNDIALS_7_8_Rust_port_for_Linux/blob/main/evidence/linux-x86_64-glibc239/pristine_c_comparison.txt).
 
 `cvRoberts_dnsL` and `cvsRoberts_dnsL` needed one extra step, because a
 pristine build with `ENABLE_LAPACK=OFF` does not contain them at all.
