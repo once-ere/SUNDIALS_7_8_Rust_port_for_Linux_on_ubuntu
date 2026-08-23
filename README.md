@@ -53,6 +53,14 @@ cmake 4.2.3, rustc 1.96.1**.
 | `cargo test --workspace --lib` | **39 tests pass** across the workspace, 37 of them in `sundials_core` | |
 | reproducibility | the pipeline was re-run from source and **every capture in the compared set came back byte-identical** | [`c-results/README.md`](c-results/README.md) |
 
+Related: the same porting discipline and bit-identity methodology — applied
+on Windows 11 via the sibling
+[`SUNDIALS_7_8_Rust_port_for_Windows11`](https://github.com/once-ere/SUNDIALS_7_8_Rust_port_for_Windows11)
+— also produced
+[`rebound_rust`](https://github.com/once-ere/rebound_rust), a pure-Rust
+translation of the [REBOUND](https://github.com/hannorein/rebound) 5.1.1
+N-body code, verified bit-for-bit against its MSVC-compiled C reference.
+
 ## Quick start
 
 ```bash
